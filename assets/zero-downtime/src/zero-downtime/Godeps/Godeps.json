@@ -1,6 +1,5 @@
 {
 	"ImportPath": "zero-downtime",
-	"GoVersion": "go1.12",
-	"GodepVersion": "v79",
+	"GoVersion": "go1.5.3",
 	"Deps": []
 }
