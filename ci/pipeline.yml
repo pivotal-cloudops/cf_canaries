@@ -10,6 +10,7 @@ jobs:
     params:
       ZERO_DOWNTIME_COUNT: 40
       INSTANCE_CANARY_COUNT: 40
+      INSTANCES_PER_APP: 2
       CANARY_APP_DOMAIN: pws-canaries.cf-app.com
       CF_USERNAME: ((cf-user.username))
       CF_PASSWORD: ((cf-user.password))

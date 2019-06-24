@@ -42,7 +42,7 @@ module CfCanaries
         push_app(
           logger, runner, "zero-downtime-canary#{i + 1}", {},
           directory_name: 'zero-downtime/src/zero-downtime',
-          memory: '128M'
+          memory: '32M'
         )
       end
     end

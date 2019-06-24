@@ -4,6 +4,7 @@ set -euo pipefail
 
 : ${ZERO_DOWNTIME_COUNT:?}
 : ${INSTANCE_CANARY_COUNT:?}
+: ${INSTANCES_PER_APP:?}
 : ${CANARY_APP_DOMAIN:?}
 : ${CF_USERNAME:?}
 : ${CF_PASSWORD:?}
@@ -22,10 +23,11 @@ gem build cf_canaries.gemspec
 gem install cf_canaries-0.1.3.gem
 
 canaries --number-of-zero-downtime-apps="$ZERO_DOWNTIME_COUNT" \
-           --number-of-instances-canary-instances="$INSTANCE_CANARY_COUNT" \
-           --app-domain="$CANARY_APP_DOMAIN" \
-           --target="$CF_API_ENDPOINT" \
-           --username="$CF_USERNAME" \
-           --password="$CF_PASSWORD" \
-           --organization="$CANARY_ORG" \
-           --space="$CANARY_SPACE"
+  --number-of-instances-canary-instances="$INSTANCE_CANARY_COUNT" \
+  --number-of-instances-per-app="$INSTANCES_PER_APP" \
+  --app-domain="$CANARY_APP_DOMAIN" \
+  --target="$CF_API_ENDPOINT" \
+  --username="$CF_USERNAME" \
+  --password="$CF_PASSWORD" \
+  --organization="$CANARY_ORG" \
+  --space="$CANARY_SPACE"
