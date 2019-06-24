@@ -109,7 +109,16 @@ module CfCanaries
       logger.info "pushing #{name} canary"
 
       if app_exists?(logger, runner, name)
-        logger.info 'skipping'
+        logger.info "zero-downtime updating #{name} app"
+
+        command =
+          [
+            "v3-zdt-push #{name}",
+            "-p #{canary_path(directory_name)}",
+            "-s cflinuxfs3"
+          ].join(' ')
+
+        runner.cf!(command)
         return
       end
 

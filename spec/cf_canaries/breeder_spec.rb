@@ -45,14 +45,14 @@ module CfCanaries
         end
       end
 
-      def self.it_pushes_an_app_if_it_does_not_exist(app_name, instances)
+      def self.it_pushes_new_app_or_zdt_pushes_existing_app(app_name, instances)
         context 'when app exists?' do
           before do
             expect(runner).to receive(:cf!).with("app #{app_name}")
           end
 
-          it 'does not push a an app' do
-            expect(runner).to_not receive(:cf!).with(/push #{app_name}/)
+          it 'updates the app with zero downtime push and cflinuxfs3 stack' do
+            expect(runner).to receive(:cf!).with(/v3-zdt-push #{app_name} -p .*\/assets\/.* -s cflinuxfs3/)
             breeder.breed(logger, runner)
           end
         end
@@ -88,12 +88,12 @@ module CfCanaries
       end
 
       describe 'zero downtime canary' do
-        it_pushes_an_app_if_it_does_not_exist('zero-downtime-canary1', 4)
-        it_pushes_an_app_if_it_does_not_exist('zero-downtime-canary2', 4)
+        it_pushes_new_app_or_zdt_pushes_existing_app('zero-downtime-canary1', 4)
+        it_pushes_new_app_or_zdt_pushes_existing_app('zero-downtime-canary2', 4)
       end
 
       describe 'aviary' do
-        it_pushes_an_app_if_it_does_not_exist('aviary', 4)
+        it_pushes_new_app_or_zdt_pushes_existing_app('aviary', 4)
 
         context 'when app does not exist' do
           before do
@@ -143,27 +143,27 @@ module CfCanaries
       end
 
       describe 'cpu canary' do
-        it_pushes_an_app_if_it_does_not_exist('cpu', 4)
+        it_pushes_new_app_or_zdt_pushes_existing_app('cpu', 4)
       end
 
       describe 'disk canary' do
-        it_pushes_an_app_if_it_does_not_exist('disk', 4)
+        it_pushes_new_app_or_zdt_pushes_existing_app('disk', 4)
       end
 
       describe 'memory canary' do
-        it_pushes_an_app_if_it_does_not_exist('memory', 4)
+        it_pushes_new_app_or_zdt_pushes_existing_app('memory', 4)
       end
 
       describe 'network canary' do
-        it_pushes_an_app_if_it_does_not_exist('network', 4)
+        it_pushes_new_app_or_zdt_pushes_existing_app('network', 4)
       end
 
       describe 'instances canary' do
-        it_pushes_an_app_if_it_does_not_exist('instances-canary', 3)
+        it_pushes_new_app_or_zdt_pushes_existing_app('instances-canary', 3)
       end
 
       describe 'long-running canary' do
-        it_pushes_an_app_if_it_does_not_exist('long-running-canary', 4)
+        it_pushes_new_app_or_zdt_pushes_existing_app('long-running-canary', 4)
       end
     end
   end
