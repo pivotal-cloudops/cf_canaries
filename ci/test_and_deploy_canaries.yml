@@ -1,0 +1,22 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: cloudopsci/docker-cloudops-ci
+
+inputs:
+  - name: canaries-repo
+
+params:
+  ZERO_DOWNTIME_COUNT:
+  INSTANCE_CANARY_COUNT:
+  CANARY_APP_DOMAIN:
+  CF_USERNAME:
+  CF_PASSWORD:
+  CANARY_ORG:
+  CANARY_SPACE:
+
+run:
+  path: canaries-repo/ci/test_and_deploy_canaries.sh

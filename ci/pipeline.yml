@@ -1,0 +1,24 @@
+---
+jobs:
+- name: test-and-deploy
+  serial: true
+  plan:
+  - aggregate:
+    - get: canaries-repo
+  - task: test-and-deploy
+    file: canaries-repo/ci/test_and_deploy_canaries.yml
+    params:
+      ZERO_DOWNTIME_COUNT: 40
+      INSTANCE_CANARY_COUNT: 40
+      CANARY_APP_DOMAIN: pws-canaries.cf-app.com
+      CF_USERNAME: ((cf-user.username))
+      CF_PASSWORD: ((cf-user.password))
+      CANARY_ORG: canaries
+      CANARY_SPACE: coal-mine
+resources:
+- name: canaries-repo
+  type: git
+  source:
+    uri: git@github.com:pivotal-cloudops/cf_canaries.git
+    branch: master
+    private_key: "((ci_concourse_github_key))"
