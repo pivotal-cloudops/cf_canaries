@@ -168,7 +168,7 @@ module CfCanaries
       logger.info "checking for app #{name}"
 
       begin
-        runner.cf!("app #{name}")
+        runner.cf!("app #{name} --guid")
         true
       rescue RuntimeError => e
         logger.error(e)

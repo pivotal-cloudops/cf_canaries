@@ -48,7 +48,7 @@ module CfCanaries
       def self.it_pushes_new_app_or_zdt_pushes_existing_app(app_name, instances)
         context 'when app exists?' do
           before do
-            expect(runner).to receive(:cf!).with("app #{app_name}")
+            expect(runner).to receive(:cf!).with("app #{app_name} --guid")
           end
 
           it 'updates the app with zero downtime push and cflinuxfs3 stack' do
@@ -59,7 +59,7 @@ module CfCanaries
 
         context 'when app does not exist' do
           before do
-            expect(runner).to receive(:cf!).with("app #{app_name}").and_raise
+            expect(runner).to receive(:cf!).with("app #{app_name} --guid").and_raise
           end
 
           it 'pushes an app' do
@@ -97,7 +97,7 @@ module CfCanaries
 
         context 'when app does not exist' do
           before do
-            expect(runner).to receive(:cf!).with('app aviary').and_raise
+            expect(runner).to receive(:cf!).with('app aviary --guid').and_raise
           end
 
           it 'sets TARGET environment variable normally' do
